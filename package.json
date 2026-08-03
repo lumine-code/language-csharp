@@ -1,0 +1,37 @@
+{
+  "name": "language-csharp",
+  "author": "lumine-code",
+  "version": "1.0.0",
+  "description": "C# language support.",
+  "keywords": [
+    "c#",
+    ".net",
+    "cake",
+    "csx",
+    "dotnet",
+    "tree-sitter"
+  ],
+  "private": true,
+  "repository": "https://github.com/lumine-code/language-csharp",
+  "license": "MIT",
+  "engines": {
+    "atom": "*"
+  },
+  "bugs": {
+    "url": "https://github.com/lumine-code/language-csharp/issues"
+  },
+  "scripts": {
+    "test": "lumine --test spec",
+    "lint": "eslint . --max-warnings 0",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.8.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-n": "^18.2.2",
+    "globals": "^17.7.0",
+    "prettier": "^3.9.6"
+  }
+}
