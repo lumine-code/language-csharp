@@ -1,7 +1,7 @@
 {
   "name": "C#",
   "scopeName": "source.cs",
-  "type": "modern-tree-sitter",
+  "type": "tree-sitter",
   "parser": "tree-sitter-c-sharp",
   "injectionRegex": "^(csharp|CSHARP|cs|CS)$",
   "treeSitter": {
