@@ -15,7 +15,7 @@
   "repository": "https://github.com/lumine-code/language-csharp",
   "license": "MIT",
   "engines": {
-    "lumine": "*"
+    "lumine": "^1.0.0"
   },
   "bugs": {
     "url": "https://github.com/lumine-code/language-csharp/issues"
