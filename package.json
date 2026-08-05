@@ -14,6 +14,12 @@
   "private": true,
   "repository": "https://github.com/lumine-code/language-csharp",
   "license": "MIT",
+  "files": [
+    "grammars",
+    "settings",
+    "snippets",
+    "spec"
+  ],
   "engines": {
     "lumine": "^1.0.0"
   },
