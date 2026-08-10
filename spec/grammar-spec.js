@@ -1,5 +1,7 @@
 describe("Language C# package", function () {
-  beforeEach(() => waitsForPromise(() => lumine.packages.activatePackage("language-csharp")));
+  beforeEach(async () => {
+    await lumine.packages.activatePackage("language-csharp");
+  });
 
   describe("C# Script grammar", () =>
     it("parses the grammar", function () {
