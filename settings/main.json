@@ -1,6 +1,6 @@
 {
   ".source.cs": {
-    "language": {
+    "editor": {
       "commentStart": "// ",
       "commentDelimiters": {
         "line": "//",
