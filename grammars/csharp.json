@@ -6,7 +6,7 @@
   "injectionNames": ["csharp", "cs"],
   "treeSitter": {
     "parserSource": "github:tree-sitter/tree-sitter-c-sharp#v0.23.5",
-    "wasmBuildTool": "tree-sitter-cli#v0.26.13",
+    "wasmBuildTool": "tree-sitter-cli#v0.27.0",
     "grammar": "c-sharp.wasm",
     "highlightsQuery": ["csharp-highlights.scm"],
     "tagsQuery": "csharp-tags.scm",
