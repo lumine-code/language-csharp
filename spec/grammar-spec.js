@@ -1,19 +1,13 @@
-describe("Language C# package", function () {
+describe("C# grammar selection", () => {
   beforeEach(async () => {
     await lumine.packages.activatePackage("language-csharp");
   });
 
-  describe("C# Script grammar", () =>
-    it("parses the grammar", function () {
-      const grammar = lumine.grammars.grammarForScopeName("source.csx");
-      expect(grammar).toBeDefined();
-      expect(grammar.scopeName).toBe("source.csx");
-    }));
-
-  describe("C# Cake grammar", () =>
-    it("parses the grammar", function () {
-      const grammar = lumine.grammars.grammarForScopeName("source.cake");
-      expect(grammar).toBeDefined();
-      expect(grammar.scopeName).toBe("source.cake");
-    }));
+  for (const fileName of ["Program.cs", "build.cake", "script.csx"]) {
+    it(`uses the C# Tree-sitter grammar for ${fileName}`, () => {
+      const grammar = lumine.grammars.selectGrammar(fileName, "");
+      expect(grammar.scopeName).toBe("source.cs");
+      expect(grammar.type).toBe("tree-sitter");
+    });
+  }
 });
