@@ -72,15 +72,15 @@
 ((interpolated_string_expression) @string.quoted.double.interpolated.cs
 	(#eq? @string.quoted.double.interpolated.cs "$\"\""))
 
-; Triple-quoted interpolation strings.
-(interpolated_string_expression (interpolation_quote)) @string.quoted.triple.interpolated.cs
+; Triple-quoted interpolation strings. Inspect the first content node without
+; rooting the query on every child of a potentially large interpolated string.
+((interpolated_string_expression) @string.quoted.triple.interpolated.cs
+	(#is? test.typeAt "firstNamedChild.nextNamedSibling interpolation_quote"))
 
 ; Delimiters for triple-quoted interpolation strings.
-(interpolated_string_expression
-	(interpolation_quote) @punctuation.definition.string.begin.cs
+((interpolation_quote) @punctuation.definition.string.begin.cs
 	(#is? test.firstOfType))
-(interpolated_string_expression
-	(interpolation_quote) @punctuation.definition.string.end.cs
+((interpolation_quote) @punctuation.definition.string.end.cs
 	(#is? test.lastOfType))
 
 ; The sigil in an interpolation string.
@@ -89,20 +89,16 @@
 (escape_sequence) @constant.character.escape.cs
 
 ; Interpolations within strings.
-(interpolated_string_expression
-	(interpolation) @meta.embedded.block.cs
+((interpolation) @meta.embedded.block.cs
 	(#match? @meta.embedded.block.cs "\\n")
 	(#set! capture.final))
 
-(interpolated_string_expression
-	(interpolation) @meta.embedded.line.cs)
+(interpolation) @meta.embedded.line.cs
 
-(interpolation
-	(interpolation_brace) @punctuation.section.embedded.begin.cs
+((interpolation_brace) @punctuation.section.embedded.begin.cs
 	(#is? test.firstOfType))
 
-(interpolation
-	(interpolation_brace) @punctuation.section.embedded.end.cs
+((interpolation_brace) @punctuation.section.embedded.end.cs
 	(#is? test.lastOfType))
 
 ; COMMENTS
@@ -180,8 +176,10 @@
 (predefined_type) @support.storage.type.builtin.cs
 
 ; Catch and mark all `type:` fields on things that aren't object creation
-; expressions.
-(_ type: (_) @_IGNORE_
+; expressions. Root the query on the field value so a large generic type does
+; not force a walk over all of its arguments for every viewport query.
+((_) @_IGNORE_
+	(#is? test.field type)
 	(#set! type_annotation true))
 
 ; Type coercion.
@@ -200,8 +198,8 @@
 	(#set! type_annotation true))
 
 ; Generally, anything with a `returns:` field should be highlighted like a type.
-(_
-	returns: (_) @_IGNORE_
+((_) @_IGNORE_
+	(#is? test.field returns)
 	(#set! type_annotation true))
 
 (class_declaration
@@ -224,8 +222,8 @@
 ; (base_list (identifier) @support.storage.type.cs)
 
 ; Generally, anything with a `returns:` field should be highlighted like a type.
-(_
-	returns: (identifier) @support.storage.type.cs
+((identifier) @support.storage.type.cs
+	(#is? test.field returns)
 	(#set! capture.shy))
 
 
@@ -244,12 +242,13 @@
 
 (declaration_pattern name: (identifier) @variable.other.assignment.cs)
 
-(type_parameter_list
-	(type_parameter
-		name: (identifier) @support.storage.type.parameter.cs))
+((type_parameter
+	name: (identifier) @support.storage.type.parameter.cs)
+	(#is? test.typeAt "parent.parent type_parameter_list"))
 
-(bracketed_parameter_list
+((parameter
 	name: (identifier) @variable.parameter.bracketed.cs)
+	(#is? test.typeAt "parent.parent bracketed_parameter_list"))
 
 (enum_member_declaration
 	(identifier) @variable.other.property.cs)
@@ -409,14 +408,14 @@
 	">>>="
 ] @keyword.operator.bitwise.compound.cs
 
-((type_parameter_list
-	"<" @punctuation.definition.parameters.begin.bracket.angle.cs
-	">" @punctuation.definition.parameters.end.bracket.angle.cs)
+(("<" @punctuation.definition.parameters.begin.bracket.angle.cs)
+	(#is? test.childOfType "type_parameter_list type_argument_list")
+	(#is? test.first true)
 	(#set! capture.final))
 
-((type_argument_list
-	"<" @punctuation.definition.parameters.begin.bracket.angle.cs
-	">" @punctuation.definition.parameters.end.bracket.angle.cs)
+((">" @punctuation.definition.parameters.end.bracket.angle.cs)
+	(#is? test.childOfType "type_parameter_list type_argument_list")
+	(#is? test.last true)
 	(#set! capture.final))
 
 [
