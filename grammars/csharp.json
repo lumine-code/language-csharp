@@ -3,7 +3,7 @@
   "scopeName": "source.cs",
   "type": "tree-sitter",
   "parser": "tree-sitter-c-sharp",
-  "injectionNames": ["csharp", "cs"],
+  "injectionNames": ["c#", "csharp", "cs", "cake", "cakescript"],
   "treeSitter": {
     "parserSource": "github:tree-sitter/tree-sitter-c-sharp#v0.23.5",
     "wasmBuildTool": "tree-sitter-cli#v0.27.0",
