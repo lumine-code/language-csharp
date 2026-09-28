@@ -18,12 +18,12 @@ describe("C# highlight query locality", () => {
     await editor.languageMode.ready;
   }
 
-  function capturesForRows(startRow, endRow) {
-    const layer = editor.languageMode.rootLanguageLayer;
-    return layer.queries.highlightsQuery.captures(layer.tree.rootNode, {
+  async function capturesForRows(startRow, endRow) {
+    const groups = await editor.getGrammarQueryCaptureGroups("highlightsQuery", {
       startPosition: new Point(startRow, 0),
       endPosition: new Point(endRow, 0),
     });
+    return groups.find(({ grammar }) => grammar === editor.getGrammar())?.captures ?? [];
   }
 
   it("keeps generic delimiters local inside 6000 type arguments", async () => {
@@ -52,8 +52,8 @@ describe("C# highlight query locality", () => {
     for (let i = 0; i < 6000; i++) lines.push(`    Type${i}${i === 5999 ? "" : ","}`);
     lines.push("  > field;", "}");
     await setUp(lines.join("\r\n"));
-    expect(editor.languageMode.rootLanguageLayer.tree.rootNode.hasError).toBe(false);
-    expect(capturesForRows(2999, 3005).length).toBeLessThanOrEqual(96);
+    expect((await editor.getSyntaxDiagnostics()).hasError).toBe(false);
+    expect((await capturesForRows(2999, 3005)).length).toBeLessThanOrEqual(96);
 
     const parameterLines = ["class Example<"];
     for (let i = 0; i < 6000; i++) {
@@ -61,10 +61,10 @@ describe("C# highlight query locality", () => {
     }
     parameterLines.push("> {}");
     await setUp(parameterLines.join("\r\n"));
-    expect(editor.languageMode.rootLanguageLayer.tree.rootNode.hasError).toBe(false);
-    expect(capturesForRows(2998, 3004).length).toBeLessThanOrEqual(96);
+    expect((await editor.getSyntaxDiagnostics()).hasError).toBe(false);
+    expect((await capturesForRows(2998, 3004)).length).toBeLessThanOrEqual(96);
     expect(
-      capturesForRows(2998, 3004)
+      (await capturesForRows(2998, 3004))
         .filter((capture) => capture.name === "support.storage.type.parameter.cs")
         .every(
           (capture) =>
@@ -78,8 +78,8 @@ describe("C# highlight query locality", () => {
     }
     indexerLines.push("  ] => 0;", "}");
     await setUp(indexerLines.join("\r\n"));
-    expect(editor.languageMode.rootLanguageLayer.tree.rootNode.hasError).toBe(false);
-    expect(capturesForRows(2999, 3005).length).toBeLessThanOrEqual(112);
+    expect((await editor.getSyntaxDiagnostics()).hasError).toBe(false);
+    expect((await capturesForRows(2999, 3005)).length).toBeLessThanOrEqual(112);
   });
 
   it("keeps interpolation captures local inside a 6000-row interpolated string", async () => {
@@ -98,9 +98,8 @@ describe("C# highlight query locality", () => {
     lines.push('""";');
     await setUp(lines.join("\r\n"));
 
-    const layer = editor.languageMode.rootLanguageLayer;
-    expect(layer.tree.rootNode.hasError).toBe(false);
-    const captures = capturesForRows(2998, 3004);
+    expect((await editor.getSyntaxDiagnostics()).hasError).toBe(false);
+    const captures = await capturesForRows(2998, 3004);
     expect(captures.length).toBeLessThanOrEqual(160);
     expect(
       captures
