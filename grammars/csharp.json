@@ -9,6 +9,7 @@
     "wasmBuildTool": "tree-sitter-cli#v0.27.0",
     "grammar": "c-sharp.wasm",
     "highlightsQuery": ["csharp-highlights.scm"],
+    "injectionsQuery": "csharp-injections.scm",
     "tagsQuery": "csharp-tags.scm",
     "foldsQuery": "csharp-folds.scm",
     "indentsQuery": "csharp-indents.scm"

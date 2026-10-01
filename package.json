@@ -20,6 +20,10 @@
     "snippets",
     "spec"
   ],
+  "specPackages": [
+    "language-hyperlink",
+    "language-todo"
+  ],
   "engines": {
     "lumine": "^1.0.0"
   },

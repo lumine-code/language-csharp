@@ -15,15 +15,19 @@ describe("C# highlight query locality", () => {
 
   async function setUp(text) {
     editor.setText(text);
-    await editor.languageMode.ready;
+    expect(await editor.whenGrammarSettled()).toBe(true);
+  }
+
+  function rootNode() {
+    return editor.getSyntaxNodeAtBufferPosition([0, 0], (node) => !node.parent);
   }
 
   async function capturesForRows(startRow, endRow) {
-    const groups = await editor.getGrammarQueryCaptureGroups("highlightsQuery", {
+    const query = await editor.getGrammar().getQuery("highlightsQuery");
+    return query.captures(rootNode(), {
       startPosition: new Point(startRow, 0),
       endPosition: new Point(endRow, 0),
     });
-    return groups.find(({ grammar }) => grammar === editor.getGrammar())?.captures ?? [];
   }
 
   it("keeps generic delimiters local inside 6000 type arguments", async () => {
@@ -52,7 +56,7 @@ describe("C# highlight query locality", () => {
     for (let i = 0; i < 6000; i++) lines.push(`    Type${i}${i === 5999 ? "" : ","}`);
     lines.push("  > field;", "}");
     await setUp(lines.join("\r\n"));
-    expect((await editor.getSyntaxDiagnostics()).hasError).toBe(false);
+    expect(rootNode()?.hasError).toBe(false);
     expect((await capturesForRows(2999, 3005)).length).toBeLessThanOrEqual(96);
 
     const parameterLines = ["class Example<"];
@@ -61,7 +65,7 @@ describe("C# highlight query locality", () => {
     }
     parameterLines.push("> {}");
     await setUp(parameterLines.join("\r\n"));
-    expect((await editor.getSyntaxDiagnostics()).hasError).toBe(false);
+    expect(rootNode()?.hasError).toBe(false);
     expect((await capturesForRows(2998, 3004)).length).toBeLessThanOrEqual(96);
     expect(
       (await capturesForRows(2998, 3004))
@@ -78,7 +82,7 @@ describe("C# highlight query locality", () => {
     }
     indexerLines.push("  ] => 0;", "}");
     await setUp(indexerLines.join("\r\n"));
-    expect((await editor.getSyntaxDiagnostics()).hasError).toBe(false);
+    expect(rootNode()?.hasError).toBe(false);
     expect((await capturesForRows(2999, 3005)).length).toBeLessThanOrEqual(112);
   });
 
@@ -98,7 +102,7 @@ describe("C# highlight query locality", () => {
     lines.push('""";');
     await setUp(lines.join("\r\n"));
 
-    expect((await editor.getSyntaxDiagnostics()).hasError).toBe(false);
+    expect(rootNode()?.hasError).toBe(false);
     const captures = await capturesForRows(2998, 3004);
     expect(captures.length).toBeLessThanOrEqual(160);
     expect(
