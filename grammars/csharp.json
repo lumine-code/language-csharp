@@ -5,7 +5,7 @@
   "parser": "tree-sitter-c-sharp",
   "injectionNames": ["c#", "csharp", "cs", "cake", "cakescript"],
   "treeSitter": {
-    "parserSource": "github:tree-sitter/tree-sitter-c-sharp#v0.23.5",
+    "parserSource": "github:tree-sitter/tree-sitter-c-sharp#8c0abe0b84a3681d3e6852ce2e2a1eecb4f731c5",
     "wasmBuildTool": "tree-sitter-cli#v0.27.0",
     "grammar": "c-sharp.wasm",
     "highlightsQuery": ["csharp-highlights.scm"],
