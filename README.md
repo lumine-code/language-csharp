@@ -2,6 +2,8 @@
 
 C# language support.
 
+Fork of [pulsar-edit/pulsar](https://github.com/pulsar-edit/pulsar) (`packages/language-csharp`).
+
 ## Features
 
 - **Grammars**: provides a Tree-sitter grammar built from [tree-sitter-c-sharp](https://github.com/tree-sitter/tree-sitter-c-sharp).
