@@ -1,0 +1,16 @@
+{
+  "title": "language-csharp",
+  "description": "C# syntax highlighting in the editor.",
+  "recordedOn": "2026-10-13",
+  "sourceRevision": "43700958fe9f2ab4d5c31432be7746474885df70",
+  "mode": "normal",
+  "fontSettings": "default",
+  "images": [
+    {
+      "file": "demo.png",
+      "label": "C# syntax highlighting at the default editor font size.",
+      "width": 1100,
+      "height": 820
+    }
+  ]
+}

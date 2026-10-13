@@ -13,6 +13,8 @@ Fork of [pulsar-edit/pulsar](https://github.com/pulsar-edit/pulsar) (`packages/l
 - **Snippets**: shortcuts for common declarations and control structures.
 - **Comment toggling**: line and block comment support.
 
+![C# syntax highlighting at the default editor font size.](.github/demo.png)
+
 ## Installation
 
 To install `language-csharp` search for it in the Install pane of the Lumine settings, or run the command `lumine --install lumine-code/language-csharp`.
