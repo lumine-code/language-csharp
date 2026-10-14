@@ -1,16 +1,61 @@
 {
   "title": "language-csharp",
-  "description": "C# syntax highlighting in the editor.",
-  "recordedOn": "2026-10-13",
-  "sourceRevision": "43700958fe9f2ab4d5c31432be7746474885df70",
+  "description": "C# syntax highlighting at the default editor font size.",
+  "recordedOn": "2026-10-14",
+  "sourceRevision": "72726877981aec266a8dffa2a92e81095e2c23f3",
+  "themeSourceRevision": "14a69683b0e3238e2bc128fbfae3866c1e4ee9c6",
   "mode": "normal",
   "fontSettings": "default",
+  "scenario": "demo.js",
+  "recipeHash": "abdd85c583cc463e1e153536e15942dedde8651e76e6b329b1cd6e4cd1f42e7e",
+  "environment": {
+    "platform": "win32",
+    "arch": "x64",
+    "electron": "44.7.0",
+    "chrome": "152.0.7977.130",
+    "devicePixelRatio": 1,
+    "locale": "en-GB",
+    "fontFamily": "Fira Code, Menlo, DejaVu Sans Mono, Consolas, monospace",
+    "fontSize": 14,
+    "themes": ["one-day-syntax", "one-day-ui"]
+  },
+  "viewport": { "width": 1100, "height": 820 },
+  "cornerRadius": 10,
+  "sources": {
+    "editor": {
+      "revision": "c4d7a05fe6960ae6fb041981d6cf13e9c0286b17",
+      "dirty": true,
+      "workingTreeHash": "af0ec098e764416df9522f3c6e555050b520e4700da382b2b983b2ff3742bd0a"
+    },
+    "package": {
+      "revision": "72726877981aec266a8dffa2a92e81095e2c23f3",
+      "dirty": true,
+      "workingTreeHash": "54c1393150c106b05e04556dbe0cbb454fee6aa27c27f4570c61583bb3d76df7"
+    },
+    "language-csharp": {
+      "revision": "72726877981aec266a8dffa2a92e81095e2c23f3",
+      "dirty": true,
+      "workingTreeHash": "54c1393150c106b05e04556dbe0cbb454fee6aa27c27f4570c61583bb3d76df7"
+    },
+    "one-theme": {
+      "revision": "14a69683b0e3238e2bc128fbfae3866c1e4ee9c6",
+      "dirty": true,
+      "workingTreeHash": "25d6ed50595d6b10f7d53e41dbbe8f92dcb5c0e911871356f3e6138e5c76df57"
+    }
+  },
+  "fixtures": [
+    {
+      "file": "example.cs",
+      "sha256": "42275252df753b0b9455a2efdb32e12499d729ec635ab7ab8ecb7604eb9fcb4e"
+    }
+  ],
   "images": [
     {
       "file": "demo.png",
       "label": "C# syntax highlighting at the default editor font size.",
       "width": 1100,
-      "height": 820
+      "height": 820,
+      "sha256": "658ad49569d3043af73c1fbd495516a129b7ffc267abcb2f9096b69603bd525e"
     }
   ]
 }
