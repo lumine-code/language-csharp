@@ -18,7 +18,8 @@
     "grammars",
     "settings",
     "snippets",
-    "spec"
+    "spec",
+    "THIRD_PARTY_NOTICES"
   ],
   "specPackages": [
     "language-hyperlink",
