@@ -63,6 +63,9 @@ https://github.com/dotnet/csharp-tmLanguage from the .NET Foundation
 Source: https://github.com/tree-sitter/tree-sitter-c-sharp
 Revision: 8c0abe0b84a3681d3e6852ce2e2a1eecb4f731c5
 
+Parser source: github:tree-sitter/tree-sitter-c-sharp#8c0abe0b84a3681d3e6852ce2e2a1eecb4f731c5
+Resolved commit: 8c0abe0b84a3681d3e6852ce2e2a1eecb4f731c5
+
 Original file: LICENSE
 
 The MIT License (MIT)
