@@ -132,6 +132,12 @@
 "#pragma" @keyword.control.directive.pragma.cs
 "#nullable" @keyword.control.directive.nullable.cs
 
+(ignored_directive "#:" @keyword.control.directive.file-based.cs)
+(directive_kind) @keyword.control.directive.file-based.cs
+(directive_name) @variable.other.directive.cs
+(directive_separator) @punctuation.separator.directive.cs
+(directive_value) @string.unquoted.directive.cs
+
 ; ENTITIES
 
 (interface_declaration

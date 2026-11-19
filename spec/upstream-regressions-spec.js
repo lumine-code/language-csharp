@@ -27,4 +27,14 @@ describe("C# upstream parser regressions", () => {
     expect(root.hasError).toBe(false);
     expect(root.descendantsOfType("extension_declaration").length).toBe(1);
   });
+
+  it("parses a generic name before equality as the left operand", async () => {
+    editor.setText("class C { void M() { var result = F<int> == null; } }\n");
+    expect(await editor.whenGrammarSettled()).toBe(true);
+    const root = editor.getSyntaxNodeAtBufferPosition([0, 0], (node) => !node.parent);
+    expect(root.hasError).toBe(false);
+    const [comparison] = root.descendantsOfType("binary_expression");
+    expect(comparison.childForFieldName("left").type).toBe("generic_name");
+    expect(comparison.childForFieldName("right").type).toBe("null_literal");
+  });
 });

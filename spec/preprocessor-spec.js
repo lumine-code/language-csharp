@@ -36,6 +36,26 @@ describe("C# Tree-sitter preprocessor directives", () => {
     expect(scopesAt(1, "Console")).not.toContain("comment.line.shebang.cs");
   });
 
+  it("scopes file-based app directive markers, names, separators and values", async () => {
+    await setUp([
+      "#:package Widget.Core@1.2.3",
+      "#:property PublishAot=true",
+      "Console.WriteLine(1);",
+    ]);
+
+    for (const [row, kind, name, separator, value] of [
+      [0, "package", "Widget.Core", "@", "1.2.3"],
+      [1, "property", "PublishAot", "=", "true"],
+    ]) {
+      expect(scopesAt(row, "#:")).toContain("keyword.control.directive.file-based.cs");
+      expect(scopesAt(row, kind)).toContain("keyword.control.directive.file-based.cs");
+      expect(scopesAt(row, name)).toContain("variable.other.directive.cs");
+      expect(scopesAt(row, separator)).toContain("punctuation.separator.directive.cs");
+      expect(scopesAt(row, value)).toContain("string.unquoted.directive.cs");
+    }
+    expect(scopesAt(2, "Console")).not.toContain("keyword.control.directive.file-based.cs");
+  });
+
   it("scopes every supported directive keyword without extending into its argument", async () => {
     const directives = [
       ["#define FEATURE", "#define", "definition"],
@@ -65,6 +85,13 @@ describe("C# Tree-sitter preprocessor directives", () => {
         expect(scopesAt(row, keyword, keyword.length + 1)).not.toContain(scope);
       }
     }
+  });
+
+  it("accepts literal backslashes in a line directive file name", async () => {
+    await setUp([String.raw`#line 42 "generated\folder\model.cs"`, "class Example {}"]);
+
+    expect(scopesAt(0, "#line")).toContain("keyword.control.directive.line.cs");
+    expect(scopesAt(1, "Example")).toContain("entity.name.type.class.cs");
   });
 
   it("keeps directive-like text in strings and comments out of directive scopes", async () => {

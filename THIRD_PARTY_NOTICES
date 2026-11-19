@@ -66,6 +66,9 @@ Revision: 8c0abe0b84a3681d3e6852ce2e2a1eecb4f731c5
 Parser source: github:tree-sitter/tree-sitter-c-sharp#8c0abe0b84a3681d3e6852ce2e2a1eecb4f731c5
 Resolved commit: 8c0abe0b84a3681d3e6852ce2e2a1eecb4f731c5
 
+Parser source: github:tree-sitter/tree-sitter-c-sharp#e3971fcb53bf5573a7e0d4ff6db46d2a77a4bf71
+Resolved commit: e3971fcb53bf5573a7e0d4ff6db46d2a77a4bf71
+
 Original file: LICENSE
 
 The MIT License (MIT)
